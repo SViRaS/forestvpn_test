@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:forestvpn_test/common/common.dart';
 
-class Featured extends StatelessWidget {
-  const Featured({Key? key}) : super(key: key);
+class FeaturedCard extends StatelessWidget {
+  const FeaturedCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,0 +1,1 @@
+export 'notifications_detail_page.dart';

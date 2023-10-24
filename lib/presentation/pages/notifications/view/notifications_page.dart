@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forestvpn_test/common/common.dart';
 import 'package:forestvpn_test/presentation/pages/notifications/widgets/widgets.dart';
+import 'package:forestvpn_test/presentation/pages/notifications_detail/notifications_detail.dart';
 import 'package:forestvpn_test/repositories/news/models/article.dart';
 import 'package:forestvpn_test/repositories/news/repository.dart';
 
@@ -15,11 +16,9 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
-
   List<Article> data = [];
 
   MockNewsRepository repository = MockNewsRepository();
-
 
   @override
   void initState() {
@@ -28,12 +27,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
   }
 
   void fetchDataFromRepository() async {
-   List<Article> result = await repository.getFeaturedArticles();
+    List<Article> result = await repository.getLatestArticles();
     setState(() {
       data = result;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +93,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
               const SizedBox(
                 height: 16,
               ),
-              const Featured(),
+              const FeaturedCard(),
               const SizedBox(
                 height: 16,
               ),
@@ -119,10 +117,22 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 16),
-                      child: LatestCard(
-                        networkImage: data[index].imageUrl,
-                        text: data[index].title,
-                        postingDate: '1 day',
+                      child: GestureDetector(
+                        onTap: () async {
+                          await Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return NotificationsDetailPage(
+                              description: data[index].description,
+                              imageName: data[index].imageUrl,
+                              text: data[index].title,
+                            );
+                          }));
+                        },
+                        child: LatestCard(
+                          networkImage: data[index].imageUrl,
+                          text: data[index].title,
+                          postingDate: '1 day',
+                        ),
                       ),
                     );
                   })
@@ -133,4 +143,3 @@ class _NotificationsPageState extends State<NotificationsPage> {
     );
   }
 }
-
