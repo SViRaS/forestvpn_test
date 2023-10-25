@@ -2,26 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:forestvpn_test/common/common.dart';
 
 class FeaturedCard extends StatelessWidget {
-  const FeaturedCard({Key? key}) : super(key: key);
+  final String imageUrl;
+  final String text;
+  const FeaturedCard({
+    required this.imageUrl,
+    required this.text,
+    Key? key,}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 300,
       width: 358,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/image_test1.png'),
+            image: NetworkImage(imageUrl),
             fit: BoxFit.cover),
-        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
-      child: const Align(
+      child:  Align(
         alignment: Alignment.bottomLeft,
         child: Padding(
-          padding: EdgeInsets.only(left: 16, bottom: 40),
+          padding: const EdgeInsets.only(left: 16, bottom: 20),
           child: Text(
-            'We are processing\nyour request...',
-            style: TextStyle(
+            text,
+            style: const TextStyle(
                 color: AppColors.whiteColor,
                 fontSize: 28,
                 height: 33.41 / 28,

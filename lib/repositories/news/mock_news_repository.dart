@@ -14,7 +14,8 @@ class MockNewsRepository implements AbstractNewsRepository {
 
   @override
   Future<List<Article>> getFeaturedArticles() async {
-    return _mockArticles;
+    
+    return _mockArticles.reversed.toList();
   }
 }
 

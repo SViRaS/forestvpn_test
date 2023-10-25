@@ -16,20 +16,29 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
-  List<Article> data = [];
+  List<Article> dataLatestArticles = [];
+  List<Article> dataFeaturedArticles = [];
 
   MockNewsRepository repository = MockNewsRepository();
 
   @override
   void initState() {
     super.initState();
-    fetchDataFromRepository();
+    fetchDataFromRepositoryLatestArticles();
+    fetchDataFromRepositoryFeaturedArticles();
   }
 
-  void fetchDataFromRepository() async {
+  void fetchDataFromRepositoryLatestArticles() async {
     List<Article> result = await repository.getLatestArticles();
     setState(() {
-      data = result;
+      dataLatestArticles = result;
+    });
+  }
+
+  void fetchDataFromRepositoryFeaturedArticles() async {
+    List<Article> result = await repository.getLatestArticles();
+    setState(() {
+      dataFeaturedArticles = result;
     });
   }
 
@@ -93,7 +102,35 @@ class _NotificationsPageState extends State<NotificationsPage> {
               const SizedBox(
                 height: 16,
               ),
-              const FeaturedCard(),
+              SizedBox(
+                width: double.infinity,
+                height: 300,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: dataFeaturedArticles.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return NotificationsDetailPage(
+                              description:
+                                  dataFeaturedArticles[index].description,
+                              imageName: dataFeaturedArticles[index].imageUrl,
+                              text: dataFeaturedArticles[index].title,
+                            );
+                          }));
+                        },
+                        child: FeaturedCard(
+                            imageUrl: dataFeaturedArticles[index].imageUrl,
+                            text: dataFeaturedArticles[index].title),
+                      ),
+                    );
+                  },
+                ),
+              ),
               const SizedBox(
                 height: 16,
               ),
@@ -112,7 +149,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: data.length,
+                  itemCount: dataLatestArticles.length,
                   itemExtent: 113,
                   itemBuilder: (context, index) {
                     return Padding(
@@ -122,15 +159,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
                           await Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return NotificationsDetailPage(
-                              description: data[index].description,
-                              imageName: data[index].imageUrl,
-                              text: data[index].title,
+                              description:
+                                  dataLatestArticles[index].description,
+                              imageName: dataLatestArticles[index].imageUrl,
+                              text: dataLatestArticles[index].title,
                             );
                           }));
                         },
                         child: LatestCard(
-                          networkImage: data[index].imageUrl,
-                          text: data[index].title,
+                          networkImage: dataLatestArticles[index].imageUrl,
+                          text: dataLatestArticles[index].title,
                           postingDate: '1 day',
                         ),
                       ),
