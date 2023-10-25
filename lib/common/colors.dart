@@ -8,4 +8,7 @@ class AppColors {
   static const greyColor = Color(0xFF9A9A9A);
   static const shadowColor = Color(0xff00000040);
   static const lightShadowColor = Color(0xFF0000001A);
+  
+
+  static const readedColor = Color(0xFFF5F5F5);
 }

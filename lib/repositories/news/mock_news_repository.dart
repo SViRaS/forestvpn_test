@@ -14,11 +14,9 @@ class MockNewsRepository implements AbstractNewsRepository {
 
   @override
   Future<List<Article>> getFeaturedArticles() async {
-    
     return _mockArticles.reversed.toList();
   }
 }
-
 
 final _mockArticles = [
   Article(
@@ -26,6 +24,7 @@ final _mockArticles = [
     title: 'We are processing your request...',
     publicationDate: DateTime.now().subtract(const Duration(days: 1)),
     imageUrl: 'https://i.ibb.co/Jk8FMMp/unsplash-Oqtaf-YT5k-Tw.jpg',
+    readed: false,
     description: '''Please excuse the interruption.  
 \nDue to Google's efforts to maintain a “safe ads ecosystem” for its advertisers, publishers and users from fraud and bad experiences, Google has placed restrictions on our ad serving that limit our ability to provide free VPN services. 
 \nRegrettably, this is beyond our control.  
@@ -36,6 +35,7 @@ final _mockArticles = [
     title: 'What is Lorem Ipsum...',
     publicationDate: DateTime.now().subtract(const Duration(days: 2)),
     imageUrl: 'https://i.ibb.co/VCb4zLk/unsplash-SYTO3xs06f-U-1.jpg',
+    readed: false,
     description:
         '''Lorem Ipsum is simply dummy text of the printing and typesetting industry.
         \nLorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
@@ -47,6 +47,7 @@ final _mockArticles = [
     title: 'Why do we use it...',
     publicationDate: DateTime.now().subtract(const Duration(days: 2, hours: 4)),
     imageUrl: 'https://i.ibb.co/DK9qHp0/daafc501e01c748fc88d582e7dd114de.jpg',
+    readed: false,
     description:
         '''It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
         \nThe point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
@@ -58,6 +59,7 @@ final _mockArticles = [
     title: 'Where does it come from...',
     publicationDate: DateTime.now().subtract(const Duration(days: 3, hours: 5)),
     imageUrl: 'https://i.ibb.co/3k12hXc/i-Phone-X-in-Hand-Mockup-2.jpg',
+    readed: false,
     description:
         '''Contrary to popular belief, Lorem Ipsum is not simply random text.
         \nIt has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.

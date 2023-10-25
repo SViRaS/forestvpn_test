@@ -20,6 +20,7 @@ class NotificationsDetailPage extends StatelessWidget {
         child: Column(
           children: [
             CardWidget(
+
               imageName: imageName,
               text: text,
             ),

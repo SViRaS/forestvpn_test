@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forestvpn_test/common/common.dart';
 import 'package:forestvpn_test/presentation/pages/notifications/widgets/widgets.dart';
-import 'package:forestvpn_test/presentation/pages/notifications_detail/notifications_detail.dart';
+import 'package:forestvpn_test/presentation/pages/notifications_detail/view/view.dart';
 import 'package:forestvpn_test/repositories/news/models/article.dart';
 import 'package:forestvpn_test/repositories/news/repository.dart';
 
@@ -65,32 +65,41 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   fontWeight: FontWeight.w400,
                   fontFamily: 'SF-Pro-Display'),
             ),
-            const Align(
+            Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  'Mark all read',
-                  style: TextStyle(
-                      color: AppColors.blackColor,
-                      fontSize: 18,
-                      height: 21.48 / 18,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'SF-Pro-Display'),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      for (var dataLatestArticles in dataLatestArticles) {
+                        dataLatestArticles.readed = true;
+                      }
+                    });
+                  },
+                  child: const Text(
+                    'Mark all read',
+                    style: TextStyle(
+                        color: AppColors.blackColor,
+                        fontSize: 18,
+                        height: 21.48 / 18,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'SF-Pro-Display'),
+                  ),
                 )),
           ],
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 24,
-              ),
-              const Text(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 24,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 24),
+              child: Text(
                 'Featured',
                 style: TextStyle(
                     color: AppColors.blackColor,
@@ -99,10 +108,13 @@ class _NotificationsPageState extends State<NotificationsPage> {
                     fontWeight: FontWeight.w600,
                     fontFamily: 'SF-Pro-Display'),
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              SizedBox(
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 24),
+              child: SizedBox(
                 width: double.infinity,
                 height: 300,
                 child: ListView.builder(
@@ -131,10 +143,13 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              const Text(
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 24),
+              child: Text(
                 'Latest news',
                 style: TextStyle(
                     color: AppColors.blackColor,
@@ -143,39 +158,41 @@ class _NotificationsPageState extends State<NotificationsPage> {
                     fontWeight: FontWeight.w600,
                     fontFamily: 'SF-Pro-Display'),
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: dataLatestArticles.length,
-                  itemExtent: 113,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: GestureDetector(
-                        onTap: () async {
-                          await Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return NotificationsDetailPage(
-                              description:
-                                  dataLatestArticles[index].description,
-                              imageName: dataLatestArticles[index].imageUrl,
-                              text: dataLatestArticles[index].title,
-                            );
-                          }));
-                        },
-                        child: LatestCard(
-                          networkImage: dataLatestArticles[index].imageUrl,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: dataLatestArticles.length,
+                itemExtent: 119,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        dataLatestArticles[index].readed = true;
+                      });
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return NotificationsDetailPage(
+                          description: dataLatestArticles[index].description,
+                          imageName: dataLatestArticles[index].imageUrl,
                           text: dataLatestArticles[index].title,
-                          postingDate: '1 day',
-                        ),
-                      ),
-                    );
-                  })
-            ],
-          ),
+                        );
+                      }));
+                    },
+                    child: LatestCard(
+                      networkImage: dataLatestArticles[index].imageUrl,
+                      text: dataLatestArticles[index].title,
+                      postingDate: '1 day',
+                      color: dataLatestArticles[index].readed
+                          ? AppColors.readedColor
+                          : AppColors.whiteColor,
+                    ),
+                  );
+                })
+          ],
         ),
       ),
     );
