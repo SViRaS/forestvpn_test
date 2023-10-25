@@ -7,7 +7,7 @@ part 'notifications_state.dart';
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   NotificationsBloc() : super(NotificationsInitial()) {
     on<NotificationsEvent>((event, emit) {
-      // TODO: implement event handler
+      
     });
   }
 }

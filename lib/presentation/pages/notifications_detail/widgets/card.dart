@@ -7,7 +7,7 @@ import 'package:forestvpn_test/common/common.dart';
 class CardWidget extends StatelessWidget {
   final String imageName;
   final String text;
-  const CardWidget({Key? key, required this.imageName, required this.text})
+  const CardWidget({Key? key, required this.imageName, required this.text,})
       : super(key: key);
 
   @override

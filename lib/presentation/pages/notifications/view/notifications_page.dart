@@ -1,11 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forestvpn_test/common/common.dart';
 import 'package:forestvpn_test/presentation/pages/notifications/widgets/widgets.dart';
 import 'package:forestvpn_test/presentation/pages/notifications_detail/view/view.dart';
-import 'package:forestvpn_test/repositories/news/models/article.dart';
 import 'package:forestvpn_test/repositories/news/repository.dart';
 
 class NotificationsPage extends StatefulWidget {
@@ -185,7 +182,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                     child: LatestCard(
                       networkImage: dataLatestArticles[index].imageUrl,
                       text: dataLatestArticles[index].title,
-                      postingDate: '1 day',
+                      datePublished: dataLatestArticles[index].publicationDate,
                       color: dataLatestArticles[index].readed
                           ? AppColors.readedColor
                           : AppColors.whiteColor,

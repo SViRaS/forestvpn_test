@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:forestvpn_test/common/common.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class LatestCard extends StatelessWidget {
   final String networkImage;
   final String text;
-  final String postingDate;
   final Color color;
+  final DateTime datePublished;
 
   const LatestCard({
     required this.networkImage,
     required this.text,
-    required this.postingDate,
      required this.color,
-    Key? key,
+     required this.datePublished,
+    Key? key, 
   }) : super(key: key);
 
   @override
@@ -74,7 +75,7 @@ class LatestCard extends StatelessWidget {
                               color: AppColors.blackColor),
                         ),
                       ),
-                      Text(postingDate,
+                      Text(timeago.format(datePublished),
                           style: const TextStyle(
                               fontSize: 12,
                               height: 14.32 / 12,
